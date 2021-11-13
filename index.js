@@ -46,6 +46,12 @@ async function run() {
             // console.log('hiting the post', req.body);
             res.json(result);
         });
+        app.delete('/products/:id', async (req, res) => {
+            const { id } = req.params;
+            const query = { _id: ObjectId(id) };
+            const result = await productsCollection.deleteOne(query);
+            res.send(result);
+        });
         app.post('/users', async (req, res) => {
             const user = req.body;
             const result = await usersCollection.insertOne(user);
@@ -124,6 +130,7 @@ async function run() {
             const result = await orderCollection.deleteOne(query);
             res.send(result);
         });
+
         app.get('/userOrders', async (req, res) => {
             const { customerEmail } = req.query;
 
